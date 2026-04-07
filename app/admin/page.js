@@ -5,6 +5,9 @@ import { supabase } from '../../lib/supabase';
 import AdminSermons from '@/components/AdminSermons';
 
 export default function AdminPage() {
+  const [authorized, setAuthorized] = useState(false);
+  const [passwordInput, setPasswordInput] = useState('');
+
   const [prayers, setPrayers] = useState([]);
   const [connects, setConnects] = useState([]);
   const [announcements, setAnnouncements] = useState([]);
@@ -26,9 +29,13 @@ export default function AdminPage() {
     image_url: '',
   });
 
+  const ADMIN_PASSWORD = 'midwayadmin';
+
   useEffect(() => {
-    fetchData();
-  }, []);
+    if (authorized) {
+      fetchData();
+    }
+  }, [authorized]);
 
   async function fetchData() {
     const { data: prayerData } = await supabase
@@ -55,6 +62,16 @@ export default function AdminPage() {
     setConnects(connectData || []);
     setAnnouncements(announcementData || []);
     setEvents(eventData || []);
+  }
+
+  function handleLogin(e) {
+    e.preventDefault();
+
+    if (passwordInput === ADMIN_PASSWORD) {
+      setAuthorized(true);
+    } else {
+      alert('Incorrect password');
+    }
   }
 
   function resetEventForm() {
@@ -188,6 +205,35 @@ export default function AdminPage() {
     }
 
     fetchData();
+  }
+
+  if (!authorized) {
+    return (
+      <div className="page" style={{ maxWidth: '420px', margin: '0 auto' }}>
+        <div style={formCardStyle}>
+          <h1 style={{ marginTop: 0, marginBottom: '1rem' }}>Admin Login</h1>
+          <p style={{ marginBottom: '1rem' }}>
+            Enter the admin password to access the dashboard.
+          </p>
+
+          <form onSubmit={handleLogin}>
+            <input
+              type="password"
+              placeholder="Enter password"
+              value={passwordInput}
+              onChange={(e) => setPasswordInput(e.target.value)}
+              style={inputStyle}
+            />
+
+            <div style={{ marginTop: '1rem' }}>
+              <button type="submit" style={primaryButtonStyle}>
+                Enter Admin
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    );
   }
 
   return (
