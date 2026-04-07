@@ -19,7 +19,7 @@ export default function ContactPage() {
 
       <div className="card">
         <h2>Email / Website</h2>
-        <p>DiscoverMidway.org</p>
+        <p>discovermidwaychurch.org</p>
       </div>
 
       <div className="card">

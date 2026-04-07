@@ -6,7 +6,7 @@ export default function Footer() {
         <p>Sunday School: 10:00 AM | Worship: 11:00 AM</p>
         <p>Wednesday Bible Study: 6:30 PM</p>
         <p>1218 SC-284 Abbeville, SC 29620</p>
-        <p>(864) 561-2763 | DiscoverMidway.org</p>
+        <p>(864) 561-2763 | discovermidwaychurch.org</p>
       </div>
     </footer>
   );
