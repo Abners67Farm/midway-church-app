@@ -5,6 +5,8 @@ import Footer from '../components/Footer';
 export const metadata = {
   title: 'Midway Baptist Church',
   description: 'A place to worship, grow, and connect.',
+  manifest: '/manifest.json',
+  themeColor: '#1e73be',
 };
 
 export default function RootLayout({ children }) {

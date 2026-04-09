@@ -8,6 +8,7 @@ export default function HomePage() {
   const [announcements, setAnnouncements] = useState([]);
   const [featuredEvent, setFeaturedEvent] = useState(null);
   const [featuredSermon, setFeaturedSermon] = useState(null);
+  const [featuredDevotion, setFeaturedDevotion] = useState(null);
 
   useEffect(() => {
     fetchHomepageData();
@@ -27,6 +28,21 @@ export default function HomePage() {
     }
 
     const today = new Date().toISOString().split('T')[0];
+
+    const { data: devotionData, error: devotionError } = await supabase
+      .from('devotions')
+      .select('*')
+      .eq('is_published', true)
+      .lte('publish_date', today)
+      .order('publish_date', { ascending: false })
+      .order('created_at', { ascending: false })
+      .limit(1);
+
+    if (devotionError) {
+      console.error('Featured devotion fetch error:', devotionError);
+    } else {
+      setFeaturedDevotion(devotionData?.[0] || null);
+    }
 
     const { data: eventData, error: eventError } = await supabase
       .from('events')
@@ -181,6 +197,58 @@ export default function HomePage() {
                   View All Sermons
                 </Link>
               </div>
+            </div>
+          </div>
+        )}
+      </section>
+
+      <section className="home-section">
+        <h2>Today's Devotion</h2>
+
+        {!featuredDevotion && <p>No devotion available right now.</p>}
+
+        {featuredDevotion && (
+          <div className="card" style={{ maxWidth: '720px' }}>
+            <p
+              style={{
+                fontSize: '0.85rem',
+                fontWeight: 700,
+                letterSpacing: '0.05em',
+                color: '#1e73be',
+                marginBottom: '0.5rem',
+              }}
+            >
+              TODAY'S DEVOTION
+            </p>
+
+            <p
+              style={{
+                fontSize: '0.9rem',
+                color: '#666',
+                marginBottom: '0.75rem',
+              }}
+            >
+              {formatShortDate(featuredDevotion.publish_date)}
+            </p>
+
+            <h3 style={{ marginTop: 0 }}>{featuredDevotion.title}</h3>
+
+            <p style={{ fontWeight: 600, marginTop: '0.5rem' }}>
+            {featuredDevotion.scripture_reference}
+              </p>
+
+            {featuredDevotion.reflection && (
+              <p style={{ marginTop: '0.5rem' }}>
+                {featuredDevotion.reflection.length > 200
+                  ? `${featuredDevotion.reflection.slice(0, 200)}...`
+                  : featuredDevotion.reflection}
+              </p>
+            )}
+
+            <div style={{ marginTop: '0.75rem' }}>
+              <Link href="/devotions" className="hero-button">
+                Read Full Devotion
+              </Link>
             </div>
           </div>
         )}

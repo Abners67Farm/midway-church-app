@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { useState } from 'react';
 
-export default function Navbar() {
+export default function Navbar() { // updated nav {
   const [menuOpen, setMenuOpen] = useState(false);
 
   function closeMenu() {
@@ -30,6 +30,7 @@ export default function Navbar() {
           <Link href="/" onClick={closeMenu}>Home</Link>
           <Link href="/about" onClick={closeMenu}>About</Link>
           <Link href="/sermons" onClick={closeMenu}>Sermons</Link>
+          <Link href="/devotions" onClick={closeMenu}>Devotions</Link>
           <Link href="/events" onClick={closeMenu}>Events</Link>
           <Link href="/prayer" onClick={closeMenu}>Prayer</Link>
           <Link href="/visit" onClick={closeMenu}>Connect</Link>

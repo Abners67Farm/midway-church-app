@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import { supabase } from '../../lib/supabase';
 import AdminSermons from '@/components/AdminSermons';
+import AdminDevotions from '@/components/AdminDevotions';
 
 export default function AdminPage() {
   const [authorized, setAuthorized] = useState(false);
@@ -29,7 +30,7 @@ export default function AdminPage() {
     image_url: '',
   });
 
-  const ADMIN_PASSWORD = 'midwayadmin';
+  const ADMIN_PASSWORD = 'admin1887';
 
   useEffect(() => {
     if (authorized) {
@@ -569,8 +570,12 @@ export default function AdminPage() {
       </section>
 
       <section style={sectionStyle}>
-        <AdminSermons />
-      </section>
+  <AdminDevotions />
+</section>
+
+<section style={sectionStyle}>
+  <AdminSermons />
+</section>
     </div>
   );
 }

@@ -506,3 +506,26 @@ footer {
   border-radius: 6px;
   text-decoration: none;
 }
+.devotion-card {
+  margin-top: 1.5rem;
+  padding: 1.5rem;
+  background: #ffffff;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  max-width: 700px;
+}
+
+.devotion-scripture-ref {
+  font-weight: 600;
+  margin-top: 0.5rem;
+}
+
+.devotion-scripture-text {
+  font-style: italic;
+  margin-top: 0.5rem;
+  color: #444;
+}
+
+.devotion-card h3 {
+  margin-top: 1.25rem;
+}
